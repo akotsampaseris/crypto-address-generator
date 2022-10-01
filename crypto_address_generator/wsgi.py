@@ -1,5 +1,5 @@
 """
-WSGI config for wallet_generator project.
+WSGI config for crypto_address_generator project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wallet_generator.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypto_address_generator.settings')
 
 application = get_wsgi_application()

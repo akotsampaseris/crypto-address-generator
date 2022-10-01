@@ -1,5 +1,5 @@
 """
-ASGI config for wallet_generator project.
+ASGI config for crypto_address_generator project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wallet_generator.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypto_address_generator.settings')
 
 application = get_asgi_application()
