@@ -1,0 +1,5 @@
+# ignore virtual environment files
+virtualenv
+
+# ingore .env files
+*.env
