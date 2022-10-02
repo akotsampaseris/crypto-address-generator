@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'crypto_address_generator.urls'
+ROOT_URLCONF = 'crypto_wallet_generator.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crypto_address_generator.wsgi.application'
+WSGI_APPLICATION = 'crypto_wallet_generator.wsgi.application'
 
 
 DATABASES = {

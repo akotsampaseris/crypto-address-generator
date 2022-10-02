@@ -9,6 +9,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from . import serializers
 from . import models
+from . import services
 
 # Create your views here.
 class AddressList(APIView):
@@ -34,6 +35,9 @@ class AddressDetails(APIView):
     address_serializer = serializers.CryptoAddressDetailsSerializer
 
     def get(self, request, id, format=None):
+        private_key = services.CryptoAddressService.generate_private_key()
+        print(private_key)
+        
         address = get_object_or_404(self.address_model, id=id)
         serializer = self.address_serializer(address)
 
