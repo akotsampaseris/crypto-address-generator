@@ -1,4 +1,4 @@
-# Crypto Address Generator
+# Crypto Wallet Generator
 
-Generate an address for your favorite cryptocurrencies in seconds!
+Generate a wallet for your favorite cryptocurrencies in seconds!
 
