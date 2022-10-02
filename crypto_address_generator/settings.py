@@ -32,12 +32,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Custom project apps
+    'crypto_addresses.apps.CryptoAddressesConfig',
+    'crypto_coins.apps.CryptoCoinsConfig',
 
     # Third-party apps
+    'corsheaders',
     'rest_framework',
 ]
 
 MIDDLEWARE = [
+    # CORS headers middleware
+    'corsheaders.middleware.CorsMiddleware',
+
+    # Django default middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,12 +75,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'crypto_address_generator.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE'),
+        # MySQL config
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
