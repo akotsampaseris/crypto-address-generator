@@ -1,18 +1,32 @@
-import secrets
+from django.shortcuts import get_object_or_404
+
+from crypto_addresses.models import CryptoAddress
+from crypto_coins.models import CryptoCoin
 
 class CryptoAddressService:
-    @staticmethod
-    def generate_private_key():
-        bits = secrets.randbits(256)
-        bits_hex = hex(bits)
-        private_key = bits_hex[2:]
+    @classmethod
+    def create_crypto_address(cls, coin_id=None):
+        coin = get_object_or_404(CryptoCoin, id=coin_id)
+        wallet = cls.generate_wallet_address(coin_id)
+        crypto_address = CryptoAddress(
+            coin=coin,
+            address=wallet
+        )
 
-        return private_key
+        crypto_address.save()
+
+        return crypto_address
+
 
     @staticmethod
-    def generate_public_key():
-        pass
+    def generate_wallet_address(coin_id):
+        from importlib import import_module
 
-    @staticmethod
-    def checksum():
-        pass
+        wallet_module_path = 'utils.wallets.%s' % (coin_id)
+        wallet_module = import_module(wallet_module_path)
+        wallet_class = getattr(wallet_module, 'Wallet')
+
+        
+        wallet = wallet_class.generate_wallet()
+
+        return wallet
