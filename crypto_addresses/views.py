@@ -7,39 +7,58 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework.pagination import PageNumberPagination
 
-from . import serializers
-from . import models
-from . import services
+
+from crypto_addresses.models import CryptoAddress
+from crypto_addresses.services import CryptoAddressService
+from crypto_addresses.serializers import (
+    CryptoAddressDetailsSerializer, 
+    CryptoAddressListSerializer
+)
 
 # Create your views here.
-class AddressList(APIView):
+class AddressList(APIView, PageNumberPagination):
     parser_classes = [JSONParser]
     renderer_classes = [JSONRenderer]
-    address_model = models.CryptoAddress
-    address_serializer = serializers.CryptoAddressListSerializer
+    page_size = 10
+    max_page_size = 100
+    page_size_query_param = 'page_size'
+    page_query_param = 'page'
 
     def get(self, request, format=None):
-        addresses = self.address_model.objects.all()
-        serializer = self.address_serializer(addresses, many=True)
+        page_size = request.query_params.get('page_size')
+        if page_size: self.page_size = int(page_size)
 
-        return Response(
-            serializer.data,
-            status=status.HTTP_200_OK
+        coin_id = request.query_params.get('coin_id')
+        if coin_id:
+            addresses = CryptoAddress.objects.filter(
+                coin__id=coin_id
+            )
+        else:
+            addresses = CryptoAddress.objects.all()
+        
+        page = self.paginate_queryset(
+            addresses, 
+            request, 
+            view=self
+        )
+
+        serializer = CryptoAddressListSerializer(
+            page, 
+            many=True
+        )
+
+        return self.get_paginated_response(
+            serializer.data
         )
 
 
 class AddressDetails(APIView):
     parser_classes = [JSONParser]
     renderer_classes = [JSONRenderer]
-    address_model = models.CryptoAddress
-    address_serializer = serializers.CryptoAddressDetailsSerializer
 
     def get(self, request, id, format=None):
-        private_key = services.CryptoAddressService.generate_private_key()
-        print(private_key)
-        
-        address = get_object_or_404(self.address_model, id=id)
-        serializer = self.address_serializer(address)
+        address = get_object_or_404(CryptoAddress, id=id)
+        serializer = CryptoAddressDetailsSerializer(address)
 
         return Response(
             serializer.data,
@@ -48,37 +67,27 @@ class AddressDetails(APIView):
 
 
 class GenerateAddress(APIView):
-    parser_classes = [JSONParser, ]
-    renderer_classes = [JSONRenderer, ]
-    address_model = models.CryptoAddress
-    address_serializer = serializers.CryptoAddressListSerializer
+    parser_classes = [JSONParser]
+    renderer_classes = [JSONRenderer]
 
+    def post(self, request, format=None):
+        coin_id = request.query_params.get('coin_id')
 
-    def get(self, request, format=None):
-        id = 1
+        if not coin_id:
+            error_msg = 'No coin selected.'
 
-        if id:
-            address = self.address_model.object.get(id=id)
-        else:
-            error_msg = 'No id was provided.'
-            
             return Response(
                 error_msg,
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        address = CryptoAddressService\
+            .create_crypto_address(coin_id)
+        
+        serializer = CryptoAddressDetailsSerializer(address)
 
-        if address:
-            serializer = self.address_serializer(address)
-
-            return Response(
-                serializer.data,
-                status=status.HTTP_200_OK
-            )
-        else:
-            error_msg = 'No address found.'
-
-            return Response(
-                error_msg,
-                status=status.HTTP_404_NOT_FOUND
-            )
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED
+        )
+        
