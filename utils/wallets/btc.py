@@ -3,16 +3,21 @@ import hashlib
 import base58
 
 from utils.private_key_generator import PrivateKeyGenerator
-from utils.encryptions import secp256k1
+from utils.public_key_generator import PublicKeyGenerator
 
 class Wallet:
+    encryption = 'secp256k1'
+
     @classmethod
     def generate_wallet(cls):
         private_key = PrivateKeyGenerator\
             .strong_random_number()
         
-        public_key = secp256k1.Encryption\
-            .generate_public_key(private_key)
+        public_key = PublicKeyGenerator\
+            .generate_public_key(
+                private_key, 
+                encryption=cls.encryption
+            )
 
         compressed_public_key = \
             cls.compress_public_key(public_key)
