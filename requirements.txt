@@ -1,0 +1,12 @@
+asgiref==3.5.2
+base58==2.1.1
+Django==4.1.1
+django-cors-headers==3.13.0
+djangorestframework==3.14.0
+ecdsa==0.18.0
+mysqlclient==2.1.1
+pysha3==1.0.2
+python-dotenv==0.21.0
+pytz==2022.2.1
+six==1.16.0
+sqlparse==0.4.3

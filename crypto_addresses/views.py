@@ -71,7 +71,8 @@ class GenerateAddress(APIView):
     renderer_classes = [JSONRenderer]
 
     def post(self, request, format=None):
-        coin_id = request.query_params.get('coin_id')
+        data = request.data
+        coin_id = data['coin_id']
 
         if not coin_id:
             error_msg = 'No coin selected.'

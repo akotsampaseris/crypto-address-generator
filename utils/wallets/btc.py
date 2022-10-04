@@ -33,7 +33,7 @@ class Wallet:
         network_address = network_public_key + checksum
         wallet = cls.base58(network_address)
 
-        return wallet
+        return wallet, private_key
 
 
     @staticmethod

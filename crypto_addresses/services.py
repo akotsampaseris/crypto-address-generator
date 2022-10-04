@@ -7,10 +7,11 @@ class CryptoAddressService:
     @classmethod
     def create_crypto_address(cls, coin_id=None):
         coin = get_object_or_404(CryptoCoin, id=coin_id)
-        wallet = cls.generate_wallet_address(coin_id)
+        wallet, private_key = cls.generate_wallet_address(coin_id)
         crypto_address = CryptoAddress(
             coin=coin,
-            address=wallet
+            address=wallet,
+            private_key=private_key,
         )
 
         crypto_address.save()
@@ -27,6 +28,6 @@ class CryptoAddressService:
         wallet_class = getattr(wallet_module, 'Wallet')
 
         
-        wallet = wallet_class.generate_wallet()
+        wallet, private_key = wallet_class.generate_wallet()
 
-        return wallet
+        return wallet, private_key

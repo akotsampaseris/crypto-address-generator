@@ -13,8 +13,12 @@ class PublicKeyGenerator:
 
     @staticmethod
     def use_secp256k1(private_key=None):
+        private_key_bytes = codecs.decode(
+            private_key.strip(), 'hex'
+        )
+        
         sk = SigningKey.from_string(
-                codecs.decode(private_key, 'hex'), 
+                private_key_bytes, 
                 curve=SECP256k1
             )
 

@@ -7,6 +7,7 @@ class CryptoAddress(models.Model):
     id = models.BigAutoField(primary_key=True)
     coin = models.ForeignKey(CryptoCoin, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
+    private_key = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

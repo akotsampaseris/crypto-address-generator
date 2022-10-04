@@ -6,3 +6,6 @@ virtualenv
 
 # ingore .env files
 *.env
+
+# ignore frontend
+frontend

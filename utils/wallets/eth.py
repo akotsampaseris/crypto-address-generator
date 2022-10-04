@@ -1,6 +1,5 @@
 import sha3
 import codecs
-from utils import encryptions
 
 from utils.private_key_generator import PrivateKeyGenerator
 from utils.public_key_generator import PublicKeyGenerator
@@ -22,7 +21,7 @@ class Wallet:
         public_key_hash = cls.keccak(public_key)
         wallet = '0x' + public_key_hash[-40:]
         
-        return wallet
+        return wallet, private_key
 
 
     @staticmethod
