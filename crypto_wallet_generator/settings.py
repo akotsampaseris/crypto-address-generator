@@ -21,6 +21,9 @@ ALLOWED_HOSTS = [
     'generate-crypto-wallet.herokuapp.com'
 ]
 
+CSRF_TRUSTED_ORIGINS=[
+    'https://generate-crypto-wallet.herokuapp.com'
+]
 
 # Application definition
 
