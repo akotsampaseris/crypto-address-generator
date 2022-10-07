@@ -1,6 +1,7 @@
 import codecs
 import hashlib
 import base58
+from Crypto.Hash import RIPEMD160
 
 from utils.private_key_generator import PrivateKeyGenerator
 from utils.public_key_generator import PublicKeyGenerator
@@ -58,7 +59,7 @@ class Wallet:
             codecs.decode(public_key, 'hex')
         )
         
-        ripemd160 = hashlib.new('ripemd160')
+        ripemd160 = RIPEMD160.new()
         ripemd160.update(sha256.digest())
 
         public_key_hash = ripemd160.digest()
