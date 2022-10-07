@@ -40,8 +40,11 @@ class Wallet:
     def compress_public_key(public_key):
         public_key_X = public_key[:len(public_key)//2]
         
-        #X_last_byte = int(public_key_X[-1], 16) 
-        bitcoin_byte = b'03'
+        X_last_byte = public_key_X[-1] 
+        if X_last_byte % 2 == 0:
+            bitcoin_byte = b'02'
+        else:
+            bitcoin_byte = b'03'
         
         compressed_public_key = bitcoin_byte \
             + public_key_X

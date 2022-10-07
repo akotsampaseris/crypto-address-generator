@@ -18,11 +18,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = [
-    'generate-crypto-wallet.herokuapp.com'
+    'localhost',
+    'generate-crypto-wallet.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS=[
-    'https://generate-crypto-wallet.herokuapp.com'
+    'https://generate-crypto-wallet.herokuapp.com',
 ]
 
 # Application definition
