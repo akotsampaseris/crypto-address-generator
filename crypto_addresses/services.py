@@ -23,7 +23,7 @@ class CryptoAddressService:
     def generate_wallet_address(coin_id):
         from importlib import import_module
 
-        wallet_module_path = 'utils.wallets.%s' % (coin_id)
+        wallet_module_path = 'crypto_addresses.utils.wallets.%s' % (coin_id)
         wallet_module = import_module(wallet_module_path)
         wallet_class = getattr(wallet_module, 'Wallet')
 
