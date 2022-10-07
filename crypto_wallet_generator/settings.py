@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://read.only.com",
+    "http://change.allowed.com",
+]
+
+
 MIDDLEWARE = [
     # CORS headers middleware
     'corsheaders.middleware.CorsMiddleware',

@@ -5,9 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
-from rest_framework.pagination import PageNumberPagination
 
-
+from crypto_addresses.paginations import CustomPageNumber
 from crypto_addresses.models import CryptoAddress
 from crypto_addresses.services import CryptoAddressService
 from crypto_addresses.serializers import (
@@ -16,7 +15,7 @@ from crypto_addresses.serializers import (
 )
 
 # Create your views here.
-class AddressList(APIView, PageNumberPagination):
+class AddressList(APIView, CustomPageNumber):
     parser_classes = [JSONParser]
     renderer_classes = [JSONRenderer]
     page_size = 10
