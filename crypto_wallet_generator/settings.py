@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'crypto_wallet_generator.wsgi.application'
 DATABASES = {
     'default': {
         # MySQL config
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': os.environ.get('DB_ENGINE'),
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
