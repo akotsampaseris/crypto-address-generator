@@ -17,7 +17,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'generate-crypto-wallet.herokuapp.com'
+]
 
 
 # Application definition
@@ -42,8 +44,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://read.only.com",
-    "http://change.allowed.com",
+
 ]
 
 
